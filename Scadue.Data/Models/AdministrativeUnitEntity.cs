@@ -1,0 +1,17 @@
+﻿using System.Collections.Generic;
+
+namespace Scadue.Data.Models
+{
+    public class AdministrativeUnitEntity : Entity
+    {
+        public string ISO3166 { get; set; }
+        public int AdminLevel { get; set; }
+        public int ParentAdminUnitId { get; set; }
+        public AdministrativeUnitEntity ParentAdministrativeUnit { get; set; }
+        public int Population { get; set; }
+        public string Name { get; set; }
+        public decimal CenterLatitude { get; set; }
+        public decimal CenterLongitude { get; set; }
+        public virtual IList<AdministrativeUnitEntity> ChildUnits { get; set; }
+    }   
+}
