@@ -69,6 +69,10 @@ namespace Scadue.Data.Repositories
 
         public async Task<IList<TEntity>> GetListAsync(Expression<Func<TEntity, bool>> parameters = null)
         {
+            if (parameters is null)
+            {
+                return await SetWithIncludes.ToListAsync();
+            }
             return await SetWithIncludes.Where(parameters).ToListAsync();
         }       
     }
