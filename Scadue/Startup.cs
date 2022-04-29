@@ -7,6 +7,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using Scadue.Data;
+using Scadue.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,8 +28,11 @@ namespace Scadue
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddScoped<NpgsqlContext>();
 
             services.AddControllers();
+            services.AddRepositories();
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Scadue", Version = "v1" });
