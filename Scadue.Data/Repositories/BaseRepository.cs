@@ -67,7 +67,7 @@ namespace Scadue.Data.Repositories
             return entityWithIncludes;
         }
 
-        public async Task<IList<TEntity>> GetListAsync(Expression<Func<TEntity, bool>> parameters)
+        public async Task<IList<TEntity>> GetListAsync(Expression<Func<TEntity, bool>> parameters = null)
         {
             return await SetWithIncludes.Where(parameters).ToListAsync();
         }       

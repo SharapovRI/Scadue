@@ -11,7 +11,7 @@ namespace Scadue.Data.Interfaces
 
         Task<TEntity> GetAsync(int id);
 
-        Task<IList<TEntity>> GetListAsync(Expression<Func<TEntity, bool>> parameters);
+        Task<IList<TEntity>> GetListAsync(Expression<Func<TEntity, bool>> parameters = null);
 
         Task<TEntity> UpdateAsync(TEntity entity);
 
