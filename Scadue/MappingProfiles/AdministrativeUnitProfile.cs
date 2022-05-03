@@ -10,8 +10,12 @@ namespace Scadue.MappingProfiles
     {
         public AdministrativeUnitProfile()
         {
-            CreateMap<AdministrativeUnitRequestAPIModel, AdministrativeUnitRequestBusinessModel>();
+            CreateMap<AdministrativeUnitRequestAPIModel, AdministrativeUnitRequestBusinessModel>()
+                .ForMember(dest => dest.ParentAdministrativeUnit, act => act.Ignore());
             CreateMap<AdministrativeUnitResponseBusinessModel, AdministrativeUnitResponseAPIModel>();
+
+            CreateMap<UnitCoordinatesRequestAPIModel, UnitCoordinatesRequestBusinessModel>();
+            CreateMap<UnitCoordinatesResponseBusinessModel, UnitCoordinatesResponseAPIModel>();
         }
     }
 }

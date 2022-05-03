@@ -30,6 +30,7 @@ namespace Scadue
             services.AddControllers();
             services.AddRepositories();
             services.AddServices();
+            services.AddRecipients();
 
             services.AddSwaggerGen(c =>
             {

@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace Scadue.Models.Request
 {
@@ -11,11 +8,11 @@ namespace Scadue.Models.Request
         public string ISO3166 { get; set; }
         public int AdminLevel { get; set; }
         public int ParentAdminUnitId { get; set; }
-        public AdministrativeUnitRequestAPIModel ParentAdministrativeUnit { get; set; }
         public int Population { get; set; }
         public string Name { get; set; }
-        public decimal CenterLatitude { get; set; }
-        public decimal CenterLongitude { get; set; }
+        public float CenterLatitude { get; set; }
+        public float CenterLongitude { get; set; }
         public virtual IList<AdministrativeUnitRequestAPIModel> ChildUnits { get; set; }
+        public string Place { get; set; }
     }
 }
