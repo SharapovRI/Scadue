@@ -40,9 +40,9 @@ namespace Scadue.Controllers
         }
 
         [HttpGet("/AdministrativeUnits/ChildUnits/{unit_name}")]
-        public async Task<IActionResult> GetChildUnits([FromQuery] GetChildUnitsRequestModel getChildUnitsRequestModel)
+        public async Task<IActionResult> GetChildUnits(string unit_name)
         {
-            var units = await _administrativeUnitService.GetChildUnitsAsync(getChildUnitsRequestModel.ParentName);
+            var units = await _administrativeUnitService.GetChildUnitsAsync(unit_name);
             var result = _mapper.Map<IList<AdministrativeUnitResponseBusinessModel>, IList<AdministrativeUnitResponseAPIModel>>(units);
             return Ok(result);
         }
@@ -51,7 +51,7 @@ namespace Scadue.Controllers
         public async Task<IActionResult> GetUnit(string unit_name)
         {
             var units = await _administrativeUnitService.GetUnitByNameAsync(unit_name);
-            var result = _mapper.Map<IList<AdministrativeUnitResponseBusinessModel>, IList<AdministrativeUnitResponseAPIModel>>(units);
+            var result = _mapper.Map<AdministrativeUnitResponseBusinessModel, AdministrativeUnitResponseAPIModel>(units);
             return Ok(result);
         }
     }

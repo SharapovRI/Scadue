@@ -17,7 +17,7 @@ namespace Scadue.Business.Interfaces
 
         Task<IList<AdministrativeUnitResponseBusinessModel>> GetChildUnitsAsync(string parentName);
 
-        Task<IList<AdministrativeUnitResponseBusinessModel>> GetUnitByNameAsync(string unitName);
+        Task<AdministrativeUnitResponseBusinessModel> GetUnitByNameAsync(string unitName);
 
         Task<AdministrativeUnitResponseBusinessModel> UpdateAsync(AdministrativeUnitRequestBusinessModel hotelModel);
 

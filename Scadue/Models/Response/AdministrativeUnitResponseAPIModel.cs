@@ -13,7 +13,7 @@ namespace Scadue.Models.Response
         public decimal CenterLatitude { get; set; }
         public decimal CenterLongitude { get; set; }
         public IList<AdministrativeUnitResponseAPIModel> ChildUnits { get; set; }
-        public IList<UnitCoordinatesResponseAPIModel> UnitCoordinates { get; set; }
+        public string UnitCoordinates { get; set; }
         public string Place { get; set; }
     }
 }

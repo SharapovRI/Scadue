@@ -14,6 +14,6 @@ namespace Scadue.Data.Models
         public float CenterLongitude { get; set; }
         public virtual IList<AdministrativeUnitEntity> ChildUnits { get; set; }
         public string Place { get; set; }
-        public virtual IList<UnitCoordinatesEntity> UnitCoordinates { get; set; }
+        public string UnitCoordinates { get; set; }
     }   
 }

@@ -12,7 +12,7 @@ namespace Scadue.Models.Request
         public string Name { get; set; }
         public float CenterLatitude { get; set; }
         public float CenterLongitude { get; set; }
-        public virtual IList<AdministrativeUnitRequestAPIModel> ChildUnits { get; set; }
+        public IList<AdministrativeUnitRequestAPIModel> ChildUnits { get; set; }
         public string Place { get; set; }
     }
 }
