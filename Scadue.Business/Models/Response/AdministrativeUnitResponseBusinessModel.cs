@@ -11,8 +11,10 @@ namespace Scadue.Business.Models.Response
         public AdministrativeUnitResponseBusinessModel ParentAdministrativeUnit { get; set; }
         public int Population { get; set; }
         public string Name { get; set; }
-        public decimal CenterLatitude { get; set; }
-        public decimal CenterLongitude { get; set; }
-        public virtual IList<AdministrativeUnitResponseBusinessModel> ChildUnits { get; set; }
+        public float CenterLatitude { get; set; }
+        public float CenterLongitude { get; set; }
+        public IList<AdministrativeUnitResponseBusinessModel> ChildUnits { get; set; }
+        public IList<UnitCoordinatesResponseBusinessModel> UnitCoordinates { get; set; }
+        public string Place { get; set; }
     }
 }

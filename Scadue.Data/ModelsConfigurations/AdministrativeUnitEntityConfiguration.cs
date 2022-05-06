@@ -20,6 +20,7 @@ namespace Scadue.Data.ModelsConfigurations
                 .IsRequired();
             builder.Property(p => p.Name).IsRequired(false);
             builder.Property(p => p.ISO3166).IsRequired(false);
+            builder.Property(p => p.Place).IsRequired(false);
 
             builder.HasOne(p => p.ParentAdministrativeUnit)
                 .WithMany(p => p.ChildUnits)

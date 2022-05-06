@@ -9,18 +9,15 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Scadue", "Scadue\Scadue.csp
 		{328B048A-D80F-45DC-9D3D-9582AEDBA89C} = {328B048A-D80F-45DC-9D3D-9582AEDBA89C}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Scadue.Business", "Scadue.Business\Scadue.Business.csproj", "{328B048A-D80F-45DC-9D3D-9582AEDBA89C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Scadue.Business", "Scadue.Business\Scadue.Business.csproj", "{328B048A-D80F-45DC-9D3D-9582AEDBA89C}"
 	ProjectSection(ProjectDependencies) = postProject
 		{C974320D-E3FB-4682-BC4D-629AFA70394A} = {C974320D-E3FB-4682-BC4D-629AFA70394A}
 		{99DA096F-6883-4D09-99EE-CA89EBD15F47} = {99DA096F-6883-4D09-99EE-CA89EBD15F47}
-		{5DEB51FD-CDCE-4A4E-B6EE-1E0B6F28A29E} = {5DEB51FD-CDCE-4A4E-B6EE-1E0B6F28A29E}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Scadue.Data", "Scadue.Data\Scadue.Data.csproj", "{99DA096F-6883-4D09-99EE-CA89EBD15F47}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Scadue.Data", "Scadue.Data\Scadue.Data.csproj", "{99DA096F-6883-4D09-99EE-CA89EBD15F47}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Scadue.Recipient.OpenStreetMap.OverpassAPI", "Scadue.Recipient.OpenStreetMap.OverpassAPI\Scadue.Recipient.OpenStreetMap.OverpassAPI.csproj", "{C974320D-E3FB-4682-BC4D-629AFA70394A}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Scadue.Converter", "Scadue.Converter\Scadue.Converter.csproj", "{5DEB51FD-CDCE-4A4E-B6EE-1E0B6F28A29E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Scadue.Recipient.OpenStreetMap.OverpassAPI", "Scadue.Recipient.OpenStreetMap.OverpassAPI\Scadue.Recipient.OpenStreetMap.OverpassAPI.csproj", "{C974320D-E3FB-4682-BC4D-629AFA70394A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -44,10 +41,6 @@ Global
 		{C974320D-E3FB-4682-BC4D-629AFA70394A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C974320D-E3FB-4682-BC4D-629AFA70394A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C974320D-E3FB-4682-BC4D-629AFA70394A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{5DEB51FD-CDCE-4A4E-B6EE-1E0B6F28A29E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{5DEB51FD-CDCE-4A4E-B6EE-1E0B6F28A29E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{5DEB51FD-CDCE-4A4E-B6EE-1E0B6F28A29E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{5DEB51FD-CDCE-4A4E-B6EE-1E0B6F28A29E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

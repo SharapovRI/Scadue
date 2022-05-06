@@ -16,6 +16,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Scadue.Data\Scadue.Data.csproj" />
+    <ProjectReference Include="..\Scadue.Recipient.OpenStreetMap.OverpassAPI\Scadue.Recipient.OpenStreetMap.OverpassAPI.csproj" />
   </ItemGroup>
 
 </Project>

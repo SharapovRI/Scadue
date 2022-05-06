@@ -13,6 +13,12 @@ namespace Scadue.Business.Interfaces
 
         Task<IEnumerable<AdministrativeUnitResponseBusinessModel>> GetListAsync();
 
+        Task<AdministrativeUnitResponseBusinessModel> GetCountryAsync(string unitName);
+
+        Task<IList<AdministrativeUnitResponseBusinessModel>> GetChildUnitsAsync(string parentName);
+
+        Task<IList<AdministrativeUnitResponseBusinessModel>> GetUnitByNameAsync(string unitName);
+
         Task<AdministrativeUnitResponseBusinessModel> UpdateAsync(AdministrativeUnitRequestBusinessModel hotelModel);
 
         Task<AdministrativeUnitResponseBusinessModel> DeleteAsync(int id);
