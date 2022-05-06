@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using Scadue.Data;
@@ -9,9 +10,10 @@ using Scadue.Data;
 namespace Scadue.Data.Migrations
 {
     [DbContext(typeof(NpgsqlContext))]
-    partial class NpgsqlContextModelSnapshot : ModelSnapshot
+    [Migration("20220504200743_ChangeCoordinatesFloatToDouble")]
+    partial class ChangeCoordinatesFloatToDouble
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -50,14 +52,37 @@ namespace Scadue.Data.Migrations
                     b.Property<int>("Population")
                         .HasColumnType("integer");
 
-                    b.Property<string>("UnitCoordinates")
-                        .HasColumnType("text");
-
                     b.HasKey("Id");
 
                     b.HasIndex("ParentAdminUnitId");
 
                     b.ToTable("AdministrativeUnits");
+                });
+
+            modelBuilder.Entity("Scadue.Data.Models.UnitCoordinatesEntity", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<double>("Lat")
+                        .HasColumnType("double precision");
+
+                    b.Property<double>("Lon")
+                        .HasColumnType("double precision");
+
+                    b.Property<int>("Number")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("UnitId")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UnitId");
+
+                    b.ToTable("UnitCoordinates");
                 });
 
             modelBuilder.Entity("Scadue.Data.Models.AdministrativeUnitEntity", b =>
@@ -69,9 +94,22 @@ namespace Scadue.Data.Migrations
                     b.Navigation("ParentAdministrativeUnit");
                 });
 
+            modelBuilder.Entity("Scadue.Data.Models.UnitCoordinatesEntity", b =>
+                {
+                    b.HasOne("Scadue.Data.Models.AdministrativeUnitEntity", "AdministrativeUnit")
+                        .WithMany("UnitCoordinates")
+                        .HasForeignKey("UnitId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("AdministrativeUnit");
+                });
+
             modelBuilder.Entity("Scadue.Data.Models.AdministrativeUnitEntity", b =>
                 {
                     b.Navigation("ChildUnits");
+
+                    b.Navigation("UnitCoordinates");
                 });
 #pragma warning restore 612, 618
         }

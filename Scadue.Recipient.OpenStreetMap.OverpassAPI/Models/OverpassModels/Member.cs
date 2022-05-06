@@ -1,4 +1,4 @@
-﻿namespace Scadue.Recipient.OpenStreetMap.OverpassAPI.Models
+﻿namespace Scadue.Recipient.OpenStreetMap.OverpassAPI.Models.OverpassModels
 {
     public class Member
     {

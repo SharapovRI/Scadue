@@ -22,6 +22,12 @@ namespace Scadue
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors(options => options.AddPolicy("123123", builder => builder
+                .WithOrigins("https://localhost:3000")
+                .AllowAnyHeader()
+                .AllowAnyMethod())
+            );
+
             services.AddAutoMapper(typeof(Startup))
                 .AddBusinessMapper();
 
@@ -51,6 +57,11 @@ namespace Scadue
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            app.UseCors(builder => builder.WithOrigins("https://localhost:3000")
+                .AllowAnyHeader()
+                .AllowAnyMethod()
+                .AllowAnyOrigin());
 
             app.UseAuthorization();
 

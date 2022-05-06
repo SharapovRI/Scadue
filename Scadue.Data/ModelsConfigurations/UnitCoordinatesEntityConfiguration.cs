@@ -18,10 +18,6 @@ namespace Scadue.Data.ModelsConfigurations
                 .IsRequired();
             builder.Property(p => p.Number)
                 .IsRequired();
-
-            builder.HasOne(p => p.AdministrativeUnit)
-                .WithMany(p => p.UnitCoordinates)
-                .HasForeignKey(p => p.UnitId);
         }
     }
 }

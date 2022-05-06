@@ -15,8 +15,7 @@ namespace Scadue.Data.Repositories
         }
         protected override IQueryable<AdministrativeUnitEntity> SetWithIncludes => _set
             .Include(p => p.ParentAdministrativeUnit)
-            .Include(p => p.ChildUnits)
-            .Include(p => p.UnitCoordinates);
+            .Include(p => p.ChildUnits);
 
         public async Task<AdministrativeUnitEntity> GetUnitByName(string unit_name, bool IsCoordinateNeed = true)
         {

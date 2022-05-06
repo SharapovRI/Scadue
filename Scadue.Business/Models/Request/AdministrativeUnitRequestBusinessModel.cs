@@ -15,6 +15,6 @@ namespace Scadue.Business.Models.Request
         public float CenterLongitude { get; set; }
         public IList<AdministrativeUnitRequestBusinessModel> ChildUnits { get; set; }
         public string Place { get; set; }
-        public IList<UnitCoordinatesRequestBusinessModel> UnitCoordinates { get; set; }
+        public string UnitCoordinates { get; set; }
     }
 }

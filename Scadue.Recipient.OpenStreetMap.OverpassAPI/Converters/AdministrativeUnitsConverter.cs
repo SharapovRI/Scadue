@@ -1,8 +1,12 @@
 ﻿using Scadue.Recipient.OpenStreetMap.OverpassAPI.ConvertedModels;
 using Scadue.Recipient.OpenStreetMap.OverpassAPI.Models;
-using Scadue.Recipient.OpenStreetMap.OverpassAPI.Models.Tags;
+using Scadue.Recipient.OpenStreetMap.OverpassAPI.Models.OverpassModels;
+using Scadue.Recipient.OpenStreetMap.OverpassAPI.Models.OverpassModels.Elements;
+using Scadue.Recipient.OpenStreetMap.OverpassAPI.Models.OverpassModels.Tags;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 
 namespace Scadue.Recipient.OpenStreetMap.OverpassAPI.Converters
 {
@@ -23,7 +27,7 @@ namespace Scadue.Recipient.OpenStreetMap.OverpassAPI.Converters
         public static AdministrativeUnitConverted ConvertToChildAdministrativeUnit(int id, UnitElement<ChildUnitTags> element)
         {
             var tags = element?.tags;
-            var members = element?.members;
+            var coordinates = element?.NominatimRoot;
 
             var childUnit = new AdministrativeUnitConverted
             {
@@ -33,15 +37,10 @@ namespace Scadue.Recipient.OpenStreetMap.OverpassAPI.Converters
                 AdminLevel = tags.admin_level,
                 Place = tags.place,
                 ParentAdminUnitId = id,
-                UnitCoordinates = ConvertUnitCoordinates(members),
+                CenterLatitude = Convert.ToSingle(coordinates.lat.Replace(".", ",")),
+                CenterLongitude = Convert.ToSingle(coordinates.lon.Replace(".", ",")),
+                UnitCoordinates = GetStringCoordinates(coordinates.geojson.coordinates),
             };
-
-            var centerNode = members?.FirstOrDefault(p => p.type == "node" && p.role == "label");
-            if (centerNode != null)
-            {
-                childUnit.CenterLatitude = centerNode.lat;
-                childUnit.CenterLongitude = centerNode.lon;
-            }
 
             return childUnit;
         }
@@ -49,7 +48,7 @@ namespace Scadue.Recipient.OpenStreetMap.OverpassAPI.Converters
         public static AdministrativeUnitConverted ConvertToCountryAdministrativeUnit(UnitElement<CountryUnitTags> element)
         {
             var tags = element?.tags;
-            var members = element?.members;
+            var coordinates = element?.NominatimRoot;
 
             var childUnit = new AdministrativeUnitConverted
             {
@@ -57,15 +56,10 @@ namespace Scadue.Recipient.OpenStreetMap.OverpassAPI.Converters
                 Name = tags?.name,
                 Population = tags.population,
                 AdminLevel = tags.admin_level,
-                UnitCoordinates = ConvertUnitCoordinates(members),
+                CenterLatitude = Convert.ToSingle(coordinates.lat.Replace(".", ",")),
+                CenterLongitude = Convert.ToSingle(coordinates.lon.Replace(".", ",")),
+                UnitCoordinates = GetStringCoordinates(coordinates.geojson.coordinates),
             };
-
-            var centerNode = members?.FirstOrDefault(p => p.type == "node" && p.role == "label");
-            if (centerNode != null)
-            {
-                childUnit.CenterLatitude = centerNode.lat;
-                childUnit.CenterLongitude = centerNode.lon;
-            }
 
             return childUnit;
         }
@@ -95,6 +89,19 @@ namespace Scadue.Recipient.OpenStreetMap.OverpassAPI.Converters
             }
 
             return unitCoordinates;
+        }
+
+        public static string GetStringCoordinates(object[] coord)
+        {
+            StringBuilder sb = new StringBuilder("");
+            foreach (var item in coord)
+            {
+                sb.AppendLine(item.ToString() + ",");
+            }
+            string result = sb.ToString().Replace("\r\n", "").Replace(" ", "");
+            result = result.Remove(result.Length - 1);
+
+            return result;
         }
     }
 }

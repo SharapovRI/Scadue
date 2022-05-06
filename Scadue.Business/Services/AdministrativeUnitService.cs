@@ -60,7 +60,7 @@ namespace Scadue.Business.Services
                 throw new Exception("Bad request");
             }
 
-            var unit = await _administrativeUnitRepository.GetUnitByName(unitName, false);
+            var unit = await _administrativeUnitRepository.GetUnitByName(unitName);
 
             if (unit != null)
             {
@@ -94,7 +94,7 @@ namespace Scadue.Business.Services
             }
             else
             {
-                var convertedModels = await _administrativeUnitRecipient.GetChildUnits(parentUnit.Id, parentUnit.Name, parentUnit.AdminLevel);
+                var convertedModels = _administrativeUnitRecipient.GetChildUnits(parentUnit.Id, parentUnit.Name, parentUnit.AdminLevel);
                 var createRequestModel = _mapper.Map<IList<AdministrativeUnitConverted>, IList<AdministrativeUnitRequestBusinessModel>>(convertedModels);
                 
                 List<AdministrativeUnitResponseBusinessModel> resultList = new();
@@ -107,7 +107,7 @@ namespace Scadue.Business.Services
             }
         }
 
-        public async Task<IList<AdministrativeUnitResponseBusinessModel>> GetUnitByNameAsync(string unitName)
+        public async Task<AdministrativeUnitResponseBusinessModel> GetUnitByNameAsync(string unitName)
         {
             if (string.IsNullOrWhiteSpace(unitName))
             {
@@ -118,11 +118,11 @@ namespace Scadue.Business.Services
 
             if (unit != null)
             {
-                return null;
+                return _mapper.Map<AdministrativeUnitEntity, AdministrativeUnitResponseBusinessModel>(unit);
             }
 
             var units = _administrativeUnitRecipient.GetUnitsByName(unitName);
-            var responseModel = _mapper.Map<IList<AdministrativeUnitConverted>, IList<AdministrativeUnitResponseBusinessModel>>(units);
+            var responseModel = _mapper.Map<AdministrativeUnitConverted, AdministrativeUnitResponseBusinessModel>(units);
 
             return responseModel;
         }
@@ -130,5 +130,6 @@ namespace Scadue.Business.Services
         {
             throw new NotImplementedException();
         }
+
     }
 }

@@ -14,7 +14,7 @@ namespace Scadue.Business.Models.Response
         public float CenterLatitude { get; set; }
         public float CenterLongitude { get; set; }
         public IList<AdministrativeUnitResponseBusinessModel> ChildUnits { get; set; }
-        public IList<UnitCoordinatesResponseBusinessModel> UnitCoordinates { get; set; }
+        public string UnitCoordinates { get; set; }
         public string Place { get; set; }
     }
 }
