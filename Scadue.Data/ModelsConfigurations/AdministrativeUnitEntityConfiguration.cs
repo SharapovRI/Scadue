@@ -21,13 +21,17 @@ namespace Scadue.Data.ModelsConfigurations
             builder.Property(p => p.Name).IsRequired(false);
             builder.Property(p => p.ISO3166).IsRequired(false);
             builder.Property(p => p.Place).IsRequired(false);
+            builder.Property(p => p.RectangleArea);
 
             builder.HasOne(p => p.ParentAdministrativeUnit)
                 .WithMany(p => p.ChildUnits)
-                .HasForeignKey(p => p.ParentAdminUnitId);
+                .HasForeignKey(p => p.ParentAdminUnitId).OnDelete(DeleteBehavior.Cascade);
             builder.HasMany(p => p.ChildUnits)
                 .WithOne(p => p.ParentAdministrativeUnit)
-                .HasForeignKey(p => p.ParentAdminUnitId);
+                .HasForeignKey(p => p.ParentAdminUnitId).OnDelete(DeleteBehavior.Cascade);
+            builder.HasMany(p => p.Buildings)
+                .WithOne(p => p.Unit)
+                .HasForeignKey(p => p.UnitId).OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

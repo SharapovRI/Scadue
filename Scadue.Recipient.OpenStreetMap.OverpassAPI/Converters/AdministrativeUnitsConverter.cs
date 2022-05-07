@@ -40,6 +40,7 @@ namespace Scadue.Recipient.OpenStreetMap.OverpassAPI.Converters
                 CenterLatitude = Convert.ToSingle(coordinates.lat.Replace(".", ",")),
                 CenterLongitude = Convert.ToSingle(coordinates.lon.Replace(".", ",")),
                 UnitCoordinates = GetStringCoordinates(coordinates.geojson.coordinates),
+                RectangleArea = GetAreaRectangle(coordinates.boundingbox),
             };
 
             return childUnit;
@@ -59,6 +60,7 @@ namespace Scadue.Recipient.OpenStreetMap.OverpassAPI.Converters
                 CenterLatitude = Convert.ToSingle(coordinates.lat.Replace(".", ",")),
                 CenterLongitude = Convert.ToSingle(coordinates.lon.Replace(".", ",")),
                 UnitCoordinates = GetStringCoordinates(coordinates.geojson.coordinates),
+                RectangleArea = GetAreaRectangle(coordinates.boundingbox),
             };
 
             return childUnit;
@@ -100,6 +102,16 @@ namespace Scadue.Recipient.OpenStreetMap.OverpassAPI.Converters
             }
             string result = sb.ToString().Replace("\r\n", "").Replace(" ", "");
             result = result.Remove(result.Length - 1);
+
+            return result;
+        }
+
+        public static float GetAreaRectangle(string[] boundingBox)
+        {
+            float latValue = Convert.ToSingle(boundingBox[1].Replace(".", ",")) - Convert.ToSingle(boundingBox[0].Replace(".", ","));
+            float lonValue = Convert.ToSingle(boundingBox[3].Replace(".", ",")) - Convert.ToSingle(boundingBox[2].Replace(".", ","));
+
+            float result = latValue * lonValue;
 
             return result;
         }
