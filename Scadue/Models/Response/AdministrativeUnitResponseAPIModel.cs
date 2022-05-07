@@ -15,5 +15,6 @@ namespace Scadue.Models.Response
         public IList<AdministrativeUnitResponseAPIModel> ChildUnits { get; set; }
         public string UnitCoordinates { get; set; }
         public string Place { get; set; }
+        public float RectangleArea { get; set; }
     }
 }

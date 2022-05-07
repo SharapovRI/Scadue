@@ -16,5 +16,6 @@ namespace Scadue.Business.Models.Request
         public IList<AdministrativeUnitRequestBusinessModel> ChildUnits { get; set; }
         public string Place { get; set; }
         public string UnitCoordinates { get; set; }
+        public float RectangleArea { get; set; }
     }
 }

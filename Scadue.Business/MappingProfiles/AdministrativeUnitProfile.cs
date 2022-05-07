@@ -24,13 +24,6 @@ namespace Scadue.Business.MappingProfiles
                 .ForMember(dest => dest.Id, act => act.Ignore());
 
             CreateMap<UnitCoordinatesConverted, UnitCoordinatesRequestBusinessModel>();
-            CreateMap<UnitCoordinatesRequestBusinessModel, UnitCoordinatesEntity>()
-                .ForMember(dest => dest.AdministrativeUnit, act => act.Ignore())
-                .ForMember(dest => dest.Lat, act => act.MapFrom(src => (double)src.Lat))
-                .ForMember(dest => dest.Lon, act => act.MapFrom(src => (double)src.Lon));
-            CreateMap<UnitCoordinatesEntity, UnitCoordinatesResponseBusinessModel>()
-                .ForMember(dest => dest.Lat, act => act.MapFrom(src => (float)src.Lat))
-                .ForMember(dest => dest.Lon, act => act.MapFrom(src => (float)src.Lon));
         }
     }
 }

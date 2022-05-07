@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using Scadue.Data;
@@ -9,9 +10,10 @@ using Scadue.Data;
 namespace Scadue.Data.Migrations
 {
     [DbContext(typeof(NpgsqlContext))]
-    partial class NpgsqlContextModelSnapshot : ModelSnapshot
+    [Migration("20220506195212_AddedCascadeDeletingAdminUnits")]
+    partial class AddedCascadeDeletingAdminUnits
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -50,9 +52,6 @@ namespace Scadue.Data.Migrations
                     b.Property<int>("Population")
                         .HasColumnType("integer");
 
-                    b.Property<float>("RectangleArea")
-                        .HasColumnType("real");
-
                     b.Property<string>("UnitCoordinates")
                         .HasColumnType("text");
 
@@ -61,46 +60,6 @@ namespace Scadue.Data.Migrations
                     b.HasIndex("ParentAdminUnitId");
 
                     b.ToTable("AdministrativeUnits");
-                });
-
-            modelBuilder.Entity("Scadue.Data.Models.BuildingEntity", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
-                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
-
-                    b.Property<string>("Adress")
-                        .HasColumnType("text");
-
-                    b.Property<float>("CenterLatitude")
-                        .HasColumnType("real");
-
-                    b.Property<float>("CenterLongitude")
-                        .HasColumnType("real");
-
-                    b.Property<string>("Class")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<int>("FloorsNumber")
-                        .HasColumnType("integer");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("text");
-
-                    b.Property<string>("Type")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<int>("UnitId")
-                        .HasColumnType("integer");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("UnitId");
-
-                    b.ToTable("Buildings");
                 });
 
             modelBuilder.Entity("Scadue.Data.Models.AdministrativeUnitEntity", b =>
@@ -113,21 +72,8 @@ namespace Scadue.Data.Migrations
                     b.Navigation("ParentAdministrativeUnit");
                 });
 
-            modelBuilder.Entity("Scadue.Data.Models.BuildingEntity", b =>
-                {
-                    b.HasOne("Scadue.Data.Models.AdministrativeUnitEntity", "Unit")
-                        .WithMany("Buildings")
-                        .HasForeignKey("UnitId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Unit");
-                });
-
             modelBuilder.Entity("Scadue.Data.Models.AdministrativeUnitEntity", b =>
                 {
-                    b.Navigation("Buildings");
-
                     b.Navigation("ChildUnits");
                 });
 #pragma warning restore 612, 618

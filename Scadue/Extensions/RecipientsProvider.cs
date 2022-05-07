@@ -9,6 +9,7 @@ namespace Scadue.Extensions
         public static IServiceCollection AddRecipients(this IServiceCollection services)
         {
             services.AddScoped<IAdministrativeUnitRecipient, AdministrativeUnitRecipient>();
+            services.AddScoped<IUnitInfoRecipient, UnitInfoRecipient>();
 
             return services;
         }

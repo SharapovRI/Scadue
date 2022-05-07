@@ -13,5 +13,6 @@ namespace Scadue.Recipient.OpenStreetMap.OverpassAPI.ConvertedModels
         public float CenterLongitude { get; set; }
         public string Place { get; set; }
         public string UnitCoordinates { get; set; }
+        public float RectangleArea { get; set; }
     }
 }

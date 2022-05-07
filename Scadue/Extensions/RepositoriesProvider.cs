@@ -9,6 +9,7 @@ namespace Scadue.Extensions
         public static IServiceCollection AddRepositories(this IServiceCollection services)
         {
             services.AddScoped<IAdministrativeUnitRepository, AdministrativeUnitRepository>();
+            services.AddScoped<IBuildingRepository, BuildingRepository>();
 
             return services;
         }
