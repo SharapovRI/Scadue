@@ -17,5 +17,7 @@ namespace Scadue.Business.Interfaces
         Task UpdateAsync();
 
         Task DeleteAsync(int id);
+
+        object GetBuildingClassCounts(IList<BuildingResponseBusinessModel> buildingsCollection);
     }
 }

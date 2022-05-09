@@ -6,8 +6,8 @@ namespace Scadue.Data
 {
     public class NpgsqlContext : DbContext
     {
-        public DbSet<AdministrativeUnitEntity> AdministrativeUnits { get; set; }
         public DbSet<BuildingEntity> Buildings { get; set; }
+        public DbSet<AdministrativeUnitEntity> AdministrativeUnits { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -16,8 +16,8 @@ namespace Scadue.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.ApplyConfiguration(new AdministrativeUnitEntityConfiguration());
             modelBuilder.ApplyConfiguration(new BuildingEntityConfiguration());
+            modelBuilder.ApplyConfiguration(new AdministrativeUnitEntityConfiguration());
         }
     }
 }
