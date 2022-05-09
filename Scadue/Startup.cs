@@ -54,6 +54,9 @@ namespace Scadue
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Scadue v1"));
             }
 
+            app.UseErrorHandler();
+
+
             app.UseHttpsRedirection();
 
             app.UseRouting();

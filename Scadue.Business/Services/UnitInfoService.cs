@@ -31,7 +31,7 @@ namespace Scadue.Business.Services
 
         public async Task<IList<BuildingResponseBusinessModel>> GetUnitInfo(int adminLevel, string unitName)
         {
-            var unit = await _administrativeUnitRepository.GetUnitByName(unitName, false);
+            var unit = await _administrativeUnitRepository.GetUnitByName(unitName, true);
 
             if (unit is null)
             {
@@ -52,7 +52,7 @@ namespace Scadue.Business.Services
 
                 await CreateRangeAsync(buildingsToCreate);
 
-                unit = await _administrativeUnitRepository.GetUnitByName(unitName, false);
+                unit = await _administrativeUnitRepository.GetUnitByName(unitName, true);
 
                 resultList = _mapper.Map<List<BuildingEntity>, List<BuildingResponseBusinessModel>>((List<BuildingEntity>)unit.Buildings);
                 return resultList;
@@ -105,6 +105,19 @@ namespace Scadue.Business.Services
         public Task DeleteAsync(int id)
         {
             throw new NotImplementedException();
+        }
+
+        public object GetBuildingClassCounts(IList<BuildingResponseBusinessModel> buildingsCollection)
+        {
+            var companies = buildingsCollection
+                    .GroupBy(p => p.Class)
+                    .Select(g => new { Class = g.Key, Count = g.Count() });
+            object result = new
+            {
+                buildings = companies,
+                unitId = buildingsCollection[0].UnitId,
+            };
+            return result;
         }
     }
 }

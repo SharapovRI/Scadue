@@ -29,8 +29,16 @@ namespace Scadue.Controllers
         public async Task<IActionResult> GetUnitInfo([FromQuery] UnitInfoRequestAPIModel unitInfoRequest)
         {
             var units = await _unitInfoService.GetUnitInfo(unitInfoRequest.AdminLevel, unitInfoRequest.UnitName);
-            var result = _mapper.Map<IList<BuildingResponseBusinessModel>, IList< BuildingResponseAPIModel>>(units);
-            return Ok(result);
+            if(units?.Count > 10000)
+            {
+                var result = _unitInfoService.GetBuildingClassCounts(units);
+                return Ok(result);
+            }
+            else 
+            {
+                var result = _mapper.Map<IList<BuildingResponseBusinessModel>, IList<BuildingResponseAPIModel>>(units);
+                return Ok(result);
+            }
         }
     }
 }
