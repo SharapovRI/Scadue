@@ -8,7 +8,7 @@ namespace Scadue.Business.Interfaces
     public interface IUnitInfoService
     {
         Task<IList<BuildingResponseBusinessModel>> GetUnitInfo(int adminLevel, string unitName);
-        Task<BuildingResponseBusinessModel> CreateAsync(BuildingRequestBusinessModel buildingRequestBusinessModel);
+        Task<IList<BuildingResponseBusinessModel>> CreateAsync(BuildingRequestBusinessModel buildingRequestBusinessModel);
 
         Task GetAsync(int id);
 

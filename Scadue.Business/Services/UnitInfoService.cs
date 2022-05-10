@@ -1,5 +1,7 @@
 ﻿using AutoMapper;
+using Newtonsoft.Json;
 using Scadue.Business.Interfaces;
+using Scadue.Business.Models;
 using Scadue.Business.Models.Request;
 using Scadue.Business.Models.Response;
 using Scadue.Data.Interfaces;
@@ -38,25 +40,38 @@ namespace Scadue.Business.Services
                 return null;
             }
 
-            if (unit.ChildUnits is null || unit.ChildUnits.Count < 1)
-            {
+            /*if (unit.ChildUnits is null || unit.ChildUnits.Count < 1)
+            {*/
                 if (unit.Buildings?.Count > 0)
                 {
-                    return _mapper.Map<IList<BuildingEntity>, IList<BuildingResponseBusinessModel>>(unit.Buildings);  
+                    var existingEntity = unit.Buildings.Last();
+                    var deserializeEntity = JsonConvert.DeserializeObject<IList<BuildingJSONModel>>(existingEntity.Data);
+
+                    var result = _mapper.Map<IList<BuildingJSONModel>, IList<BuildingResponseBusinessModel>>(deserializeEntity);
+
+                    foreach (var item in result)
+                    {
+                        item.UnitId = existingEntity.UnitId;
+                        item.Unit = _mapper.Map<AdministrativeUnitEntity, AdministrativeUnitResponseBusinessModel>(existingEntity.Unit);
+                    }
+
+                    return result;
                 }
 
                 var buildings = _unitInfoRecipient.GetUnitInfo(unit.Id, unit.Name, unit.AdminLevel);
-                var buildingsToCreate = _mapper.Map<IList<BuildingConverted>, IList<BuildingRequestBusinessModel>>(buildings);
+                var buildingsToJson = _mapper.Map<IList<BuildingConverted>, IList<BuildingJSONModel>>(buildings);
 
-                List<BuildingResponseBusinessModel> resultList = new();
+                var buildingsString = JsonConvert.SerializeObject(buildingsToJson);
+                var buildingsToCreate = new BuildingRequestBusinessModel()
+                {
+                    Data = buildingsString,
+                    UnitId = unit.Id,
+                };
 
-                await CreateRangeAsync(buildingsToCreate);
+                var resultList = await CreateAsync(buildingsToCreate);
 
-                unit = await _administrativeUnitRepository.GetUnitByName(unitName, true);
-
-                resultList = _mapper.Map<List<BuildingEntity>, List<BuildingResponseBusinessModel>>((List<BuildingEntity>)unit.Buildings);
                 return resultList;
-            }
+            /*}
             else
             {
                 List<BuildingResponseBusinessModel> resultList = new();
@@ -67,7 +82,7 @@ namespace Scadue.Business.Services
                 }
 
                 return resultList;
-            }
+            }*/
         }
 
         public Task GetAsync(int id)
@@ -79,13 +94,21 @@ namespace Scadue.Business.Services
         {
             throw new NotImplementedException();
         }
-        public async Task<BuildingResponseBusinessModel> CreateAsync(BuildingRequestBusinessModel buildingRequestBusinessModel)
+        public async Task<IList<BuildingResponseBusinessModel>> CreateAsync(BuildingRequestBusinessModel buildingRequestBusinessModel)
         {
             var building = _mapper.Map<BuildingRequestBusinessModel, BuildingEntity>(buildingRequestBusinessModel);
 
             var existingEntity = await _buildingRepository.CreateAsync(building);
 
-            var result = _mapper.Map<BuildingEntity, BuildingResponseBusinessModel>(existingEntity);
+            var deserializeEntity = JsonConvert.DeserializeObject<IList<BuildingJSONModel>>(existingEntity.Data);
+
+            var result = _mapper.Map<IList<BuildingJSONModel>, IList<BuildingResponseBusinessModel>>(deserializeEntity);
+
+            foreach (var item in result)
+            {
+                item.UnitId = existingEntity.UnitId;
+                item.Unit = _mapper.Map<AdministrativeUnitEntity, AdministrativeUnitResponseBusinessModel>(existingEntity.Unit);
+            }
 
             return result;
         }
