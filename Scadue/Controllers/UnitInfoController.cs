@@ -29,7 +29,7 @@ namespace Scadue.Controllers
         public async Task<IActionResult> GetUnitInfo([FromQuery] UnitInfoRequestAPIModel unitInfoRequest)
         {
             var units = await _unitInfoService.GetUnitInfo(unitInfoRequest.AdminLevel, unitInfoRequest.UnitName);
-            if(units?.Count > 10000)
+            if(units is not null && units?.Count > 0)
             {
                 var result = _unitInfoService.GetBuildingClassCounts(units);
                 return Ok(result);
@@ -39,6 +39,27 @@ namespace Scadue.Controllers
                 var result = _mapper.Map<IList<BuildingResponseBusinessModel>, IList<BuildingResponseAPIModel>>(units);
                 return Ok(result);
             }
+        }
+
+        [HttpPost("/UnitCollectionInfo")]
+        public async Task<IActionResult> GetUnitCollectionInfo([FromBody] UnitInfoRequestAPIModel[] coll)
+        {
+            List<object > collection = new();
+            foreach (var item in coll)
+            {
+                var units = await _unitInfoService.GetUnitInfo(item.AdminLevel, item.UnitName);
+                if (units is not null || units?.Count > 0)
+                {
+                    var result = _unitInfoService.GetBuildingClassCounts(units);
+                    collection.Add(result);
+                }
+            }
+            return Ok(collection);
+            /*else
+            {
+                var result = _mapper.Map<IList<BuildingResponseBusinessModel>, IList<BuildingResponseAPIModel>>(collection);
+                return Ok(result);
+            }*/
         }
     }
 }

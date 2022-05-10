@@ -12,18 +12,10 @@ namespace Scadue.Data.ModelsConfigurations
 
             builder.Property(key => key.Id)
                 .IsRequired();
-            builder.Property(p => p.Class)
-                .IsRequired();
-            builder.Property(p => p.Type)
+            builder.Property(p => p.Data)
                 .IsRequired();
             builder.Property(p => p.UnitId)
                 .IsRequired();
-            builder.Property(p => p.CenterLatitude)
-                .IsRequired();
-            builder.Property(p => p.CenterLongitude)
-                .IsRequired();
-            builder.Property(p => p.Name).IsRequired(false);
-            builder.Property(p => p.Adress).IsRequired(false);
 
             builder.HasOne(p => p.Unit)
                 .WithMany(p => p.Buildings)
